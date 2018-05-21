@@ -93,7 +93,7 @@ namespace Morse10Min
             {
                 input = Console.ReadLine();
                 int iterations = 0;
-                var possibilities = GetPossibleLettersFromMorse(input, 0, out iterations);
+                var possibilities = GetPossibleLettersFromMorse(input, 0, "", out iterations);
 
                 foreach (var str in possibilities)
                 {
@@ -108,7 +108,7 @@ namespace Morse10Min
 
         }
 
-        static List<string> GetPossibleLettersFromMorse(string morse, int index, out int iterations)
+        static List<string> GetPossibleLettersFromMorse(string morse, int index, string currentStr, out int iterations)
         {
             List<string> arr = new List<string>();
             iterations = 1;
@@ -120,20 +120,28 @@ namespace Morse10Min
                 {
                     string newString = MorseConvert[subStr];
                     int newIterations = 0;
-                    var next = GetPossibleLettersFromMorse(morse, index + i, out newIterations);
+                    var next = GetPossibleLettersFromMorse(morse, index + i, currentStr+newString, out newIterations);
                     iterations += newIterations;
                     if (next.Count > 0)
                     {
-                        foreach (string str in next)
-                        {
-                            iterations++;
-                            arr.Add(newString + str);
-                        }
+                        arr.AddRange(next);
                     }
                     else
                     {
-                        arr.Add(newString);
+                        arr.Add(currentStr + newString);
                     }
+                    //if (next.Count > 0)
+                    //{
+                    //    foreach (string str in next)
+                    //    {
+                    //        iterations++;
+                    //        arr.Add(newString + str);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    arr.Add(newString);
+                    //}
                 }
             }
 
