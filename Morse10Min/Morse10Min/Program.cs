@@ -111,7 +111,7 @@ namespace Morse10Min
         static List<string> GetPossibleLettersFromMorse(string morse, int index, string currentStr, out int iterations)
         {
             List<string> arr = new List<string>();
-            iterations = 1;
+            iterations = 0;
             for (int i = 1; i <= longestMorse && index + i <= morse.Length; i++)
             {
                 string subStr = morse.Substring(index, i);
